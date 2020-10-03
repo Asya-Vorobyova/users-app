@@ -3,7 +3,7 @@ Manipulating users CRUD application.
 
 Prerequisites:
 1) Java >= 8;
-2) Running postgresql server on port 5432, with database mydb, and user with grant priviledges for this db with creds: username="muUser", pwd="123456".
+2) Running postgresql server on port 5432, with database "mydb", and user with grant priviledges for this db with creds: username="myuser", pwd="123456".
 
 Admin creds to manipulate with data: username=admin, pwd=adminPass.
 
