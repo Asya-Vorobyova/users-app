@@ -7,37 +7,37 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("users")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService service;
 
-    @GetMapping(value = "/{iban}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/users/{iban}", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserDTO getUser(@PathVariable String iban) {
         return service.getUser(iban);
     }
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UserDTO> getAllUsers() {
         return service.getAllUsers();
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String addUser(@RequestBody UserDTO userDTO) throws BadParameterException {
+    @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String addUser(@Valid @RequestBody UserDTO userDTO) throws BadParameterException {
         return service.createUser(userDTO);
     }
 
-    @DeleteMapping(value = "/{iban}")
+    @DeleteMapping(value = "/users/{iban}")
     public void deleteUser(@PathVariable String iban) {
         service.deleteUser(iban);
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateUser(@RequestBody UserDTO userDTO) throws BadParameterException {
+    @PutMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void updateUser(@Valid @RequestBody UserDTO userDTO) throws BadParameterException {
         service.updateUser(userDTO);
     }
 }
