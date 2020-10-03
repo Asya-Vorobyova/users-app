@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class User {
+public class UserData {
 
     @Id
     private String iban;

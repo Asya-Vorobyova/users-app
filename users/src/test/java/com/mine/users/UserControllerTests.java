@@ -8,7 +8,6 @@ import com.mine.users.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -21,8 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = UserController.class, excludeAutoConfiguration = SecurityAutoConfiguration.class)
-//@Import(CustomSecurityConfig.class)
+@WebMvcTest(controllers = UserController.class)
 public class UserControllerTests {
 
     @Autowired
@@ -47,6 +45,7 @@ public class UserControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "admin", password = "adminPass", roles = "ADMIN")
     void whenInputIsInvalid_thenReturnsStatus403() throws Exception {
         UserDTO userDTO = new UserDTO("123", "", "Morrison");
         String body = objectMapper.writeValueAsString(userDTO);
@@ -58,6 +57,7 @@ public class UserControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "admin", password = "adminPass", roles = "ADMIN")
     void whenUserExists__thenReturnsStatus400() throws Exception {
         UserDTO userDTO = new UserDTO("123", "Jim", "Morrison");
         String body = objectMapper.writeValueAsString(userDTO);
